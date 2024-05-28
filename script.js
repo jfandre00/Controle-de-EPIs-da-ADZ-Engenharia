@@ -4,4 +4,6 @@ function registrarEntrega() {
   let colaborador = document.getElementById("colaborador").value;
   let cargo = document.getElementById("cargo").value;
   let ca = document.getElementById("ca").value;
+
+  alert(epi + " " + quantidade + " " + colaborador + " " + cargo + " " + ca)
 }
