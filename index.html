@@ -17,36 +17,36 @@
   <form action="/action_page.php">
 
     <div class="mb-3 mt-3">
-      <label>Nome do EPI:</label>
+      <label><b>Nome do EPI:</b></label>
       <input type="text" class="form-control" id="epi" placeholder="Entre com o EPI" value="Protetor Auricular">
     </div>
 
     <div class="mb-3 mt-3">
-      <label>Quantidade:</label>
+      <label><b>Quantidade:</b></label>
       <input type="text" class="form-control" id="quantidade" placeholder="Entre com a quantidade" value="1">
     </div>
 
     <div class="mb-3 mt-3">
-      <label>Nome do Colaborador:</label>
+      <label><b>Nome do Colaborador:</b></label>
       <input type="text" class="form-control" id="colaborador" placeholder="Qual o nome do colaborador" value="José da Silva">
     </div>
 
     <div class="mb-3 mt-3">
-      <label>Cargo:</label>
+      <label><b>Cargo:</b></label>
       <input type="text" class="form-control" id="cargo" placeholder="Qual o cargo do colaborador" value="Pedreiro">
     </div>
 
     <div class="mb-3 mt-3">
-      <label>CA do EPI</label>
+      <label><b>CA do EPI:</b></label>
       <input type="text" class="form-control" id="ca" placeholder="Entre com o preço" value="80014">
     </div>
 
-    <button type="button" class="btn btn-primary" onclick="vender()">Registrar Entrega</button>
+    <button type="button" class="btn btn-primary" style="background-color:red" onclick="registrarEntrega()">Registrar Entrega</button>
   </form>
 </div>
 <div class="container mt-3">
   <hr>
-  <h6>Histórico de Alteração</h6>
+  <h6 style="text-decoration: underline">Histórico de Alteração</h6>
   <ul id="historicoAlteracao">
 
   </ul>
