@@ -1,4 +1,3 @@
-
 function validarCamposObrigatorios(oEpi, aQuantidade, oColaborador, oCargo, oCa, aDataTransacao){
   //RN.01 - Validação de Campos Obrigatórios
   return oEpi && aQuantidade != null && oColaborador && oCargo && oCa != null && aDataTransacao;
@@ -19,12 +18,24 @@ function registrarDataTransacao(){
   return new Date().toLocaleString();
 } /*RESOLVIDO*/
 
-function registrarHistoricoAlteracao(aMensagem){
+function registrarHistoricoAlteracao(aMensagem, ehSucesso){
   //RN.05 - Histórico de Alterações
   const ulHistoricoAlteracao = document.getElementById("historicoAlteracao");
   const liHistorico = document.createElement("li");
   liHistorico.textContent = aMensagem;
-  ulHistoricoAlteracao.appendChild(liHistorico);  
+  // ulHistoricoAlteracao.appendChild(liHistorico);
+  const divAlertContainer = document.getElementById("alertContainer");
+  divAlertContainer.style.display = "none";
+
+  if(ehSucesso) {
+    const liHistorico = document.createElement("li");
+    liHistorico.textContent = aMensagem;
+    ulHistoricoAlteracao.appendChild(liHistorico); 
+  } else {
+    divAlertContainer.style.display = "block";
+    divAlertContainer.className = "alert alert-danger";
+    divAlertContainer.innerHTML = "<strong>Atenção!</strong> " + aMensagem;
+  }
 }
 
 function registrarEPI(epi, quantidade, colaborador, cargo, ca){
@@ -37,17 +48,28 @@ function registrarEPI(epi, quantidade, colaborador, cargo, ca){
   if(validaCamposObrigatorios){
     if(validaQuantidadeEPI){
       if(validaCA){
-        return "Transação registrada! " + epi + ", Qtde: " + quantidade + ", Colaborador: " + colaborador + ", Cargo: " + cargo + ", CA: " + ca + ", Data: " 
- + dataTransacao;
+        return {
+          mensagem: "Transação registrada! " + epi + ", Qtde: " + quantidade + ", Colaborador: " + colaborador + ", Cargo: " + cargo + ", CA: " + ca + ", Data: " + dataTransacao,
+          sucesso: true
+        }
       } else {
-        return "Problemas na Validação de CA do EPI!";
+        return {
+          mensagem: "Problemas na Validação de CA do EPI!",
+          sucesso: false
+        }
       }
-    } else {
-      return "Problemas na Validação de Quantidade de EPIs Entregues!";
-    }
-  } else {
-    return "Problemas na validação de campos obrigatórios!";
-  }
+      } else {
+        return { 
+        mensagem: "Problemas na Validação de Quantidade de EPIs Entregues!",
+        sucesso: false
+        }
+      }
+      } else {
+        return {
+        mensagem: "Problemas na validação de campos obrigatórios!",
+        sucesso: false
+      }
+      }
 }
 
 function registrarEntrega() {
@@ -57,7 +79,7 @@ function registrarEntrega() {
   let cargo = document.getElementById("cargo").value;
   let ca = document.getElementById("ca").value;
 
-const mensagem = registrarEPI(epi, quantidade, colaborador, cargo, ca);
+const objeto = registrarEPI(epi, quantidade, colaborador, cargo, ca);
 
-registrarHistoricoAlteracao(mensagem);
+  registrarHistoricoAlteracao(objeto.mensagem, objeto.sucesso);
 } 
