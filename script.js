@@ -35,6 +35,11 @@ function registrarHistoricoAlteracao(aMensagem, ehSucesso){
     divAlertContainer.style.display = "block";
     divAlertContainer.className = "alert alert-danger";
     divAlertContainer.innerHTML = "<strong>Atenção!</strong> " + aMensagem;
+
+    // Esconde o alerta após 3 segundos (3000 ms)
+    setTimeout(() => {
+      divAlertContainer.style.display = "none";
+    }, 3000);
   }
 }
 
