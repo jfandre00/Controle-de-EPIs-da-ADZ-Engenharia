@@ -131,10 +131,9 @@ function registrarEPI(epi, quantidade, colaborador, cargo, ca){
         return {
         mensagem: "Problemas na validação de campos obrigatórios!",
         sucesso: false
-      };
-        
+      };  
       }
-}
+    }
   }
 }
 
