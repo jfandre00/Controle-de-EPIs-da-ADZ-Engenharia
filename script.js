@@ -1,3 +1,15 @@
+let estoque = {
+  capacete: 10,
+  luva: 20,
+  oculos: 15,
+  protetor: 30,
+  bota: 10,
+  mascara: 30
+}
+
+const limiteMinimo = 5;
+
+
 function validarCamposObrigatorios(oEpi, aQuantidade, oColaborador, oCargo, oCa, aDataTransacao){
   //RN.01 - Validação de Campos Obrigatórios
   return oEpi && aQuantidade != null && oColaborador && oCargo && oCa != null && aDataTransacao;
@@ -43,6 +55,40 @@ function registrarHistoricoAlteracao(aMensagem, ehSucesso){
   }
 }
 
+function atualizarEstoque(oEpi, aQuantidade) {
+  //RN.06 - Atualização Automática do Estoque
+
+  if (estoque[oEpi.toLowerCase()] !== undefined) {
+    estoque[oEpi.toLowerCase()] -= aQuantidade;
+
+    return true;
+  }
+
+  return false;
+}
+
+function verificarLimiteEstoqueBaixo(oEpi) {
+  //RN.07 - Verificação de Limite de Estoque Baixo
+  if (estoque[oEpi.toLowerCase()] <= limiteMinimo) {
+    return true;
+  }
+
+  return false;
+}
+
+function validarEstoqueDisponivel(oEpi, aQuantidade) {
+  //RN.07 - Verificação de Limite de Estoque Baixo
+  if (estoque[oEpi.toLowerCase()] != undefined) {
+    if (estoque[oEpi.toLowerCase()] >= aQuantidade) {
+      return true;
+    }
+  }
+  return false;
+  
+}
+
+
+
 function registrarEPI(epi, quantidade, colaborador, cargo, ca){
   let dataTransacao = registrarDataTransacao(); /*ok resolvido */
 
@@ -53,16 +99,28 @@ function registrarEPI(epi, quantidade, colaborador, cargo, ca){
   if(validaCamposObrigatorios){
     if(validaQuantidadeEPI){
       if(validaCA){
+
+        if (validarEstoqueDisponivel(epi, quantidade)) {
+
+          if (atualizarEstoque(epi, quantidade)) {
+        
+        let msg =  "Transação registrada! " + epi + ", Qtde: " + quantidade + ", Colaborador: " + colaborador + ", Cargo: " + cargo + ", CA: " + ca + ", Data: " + dataTransacao;
+        if (verificarLimiteEstoqueBaixo(epi)) {
+          msg += "\n (Limite de estoque baixo)";
+        }
+
         return {
-          mensagem: "Transação registrada! " + epi + ", Qtde: " + quantidade + ", Colaborador: " + colaborador + ", Cargo: " + cargo + ", CA: " + ca + ", Data: " + dataTransacao,
+          mensagem: msg,
           sucesso: true
         }
+            
       } else {
         return {
           mensagem: "Problemas na Validação de CA do EPI!",
           sucesso: false
-        }
+        };
       }
+          
       } else {
         return { 
         mensagem: "Problemas na Validação de Quantidade de EPIs Entregues!",
@@ -73,9 +131,13 @@ function registrarEPI(epi, quantidade, colaborador, cargo, ca){
         return {
         mensagem: "Problemas na validação de campos obrigatórios!",
         sucesso: false
-      }
+      };
+        
       }
 }
+  }
+}
+
 
 function registrarEntrega() {
   let epi = document.getElementById("epi").value;
