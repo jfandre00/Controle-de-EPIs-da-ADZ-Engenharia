@@ -4,7 +4,8 @@ let estoque = {
   oculos: 15,
   protetor: 30,
   bota: 10,
-  mascara: 30
+  mascara: 30,
+  carneira: 20
 }
 
 const limiteMinimo = 5;
@@ -77,7 +78,7 @@ function verificarLimiteEstoqueBaixo(oEpi) {
 }
 
 function validarEstoqueDisponivel(oEpi, aQuantidade) {
-  //RN.07 - Verificação de Limite de Estoque Baixo
+  //RN.07 - Verificação de Limite de Estoque Baixo (continuação)
   if (estoque[oEpi.toLowerCase()] != undefined) {
     if (estoque[oEpi.toLowerCase()] >= aQuantidade) {
       return true;
