@@ -31,7 +31,7 @@
 
     <div class="mb-3 mt-3">
       <label><b>Quantidade:</b></label>
-      <input type="text" class="form-control" id="quantidade" placeholder="Entre com a quantidade" value="1">
+      <input type="number" class="form-control" id="quantidade" placeholder="Entre com a quantidade" value="1">
     </div>
 
     <div class="mb-3 mt-3">
@@ -39,10 +39,17 @@
       <input type="text" class="form-control" id="colaborador" placeholder="Qual o nome do colaborador" value="José da Silva">
     </div>
 
-    <div class="mb-3 mt-3">
-      <label><b>Cargo:</b></label>
-      <input type="text" class="form-control" id="cargo" placeholder="Qual o cargo do colaborador" value="Pedreiro">
-    </div>
+      <div class="mb-3 mt-3">
+        <label><b>Cargo:</b></label>
+        <select class="form-control" id="cargo">
+          <option value="Pedreiro">Pedreiro</option>
+          <option value="Armador">Armador</option>
+          <option value="Carpinteiro">Carpinteiro</option>
+          <option value="Mestre">Mestre de Obras</option>
+          <option value="Ajudante">Ajudante</option>
+          <option value="Técnico em Segurança">Técnico em Segurança</option>
+        </select>
+      </div>
 
     <div class="mb-3 mt-3">
       <label><b>CA do EPI:</b></label>
